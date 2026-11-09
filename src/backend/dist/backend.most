@@ -1,0 +1,96 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type List__355132335<T> =
+  {
+    var blockIndex : Nat__227979830;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__227979830
+  };
+type List__836382695<T> = List__355132335<T>;
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__769816496 =
+  {
+    accessControlState : AccessControlState__201339279;
+    news : Map__230067015<Nat, NewsItem__575876250>;
+    newsState : {var nextNewsId : Nat};
+    schedule : List__836382695<ProgramSlot__242246695>
+  };
+type NewsId__168210233 = NewsId__369553967;
+type NewsId__369553967 = Nat;
+type NewsItem__575876250 =
+  {
+    author : Principal;
+    body : Text;
+    id : Nat;
+    publishedAt : Int;
+    title : Text
+  };
+type NewsItem__923776713 =
+  {
+    author : Principal;
+    body : Text;
+    id : NewsId__168210233;
+    publishedAt : Timestamp__226875429;
+    title : Text
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__512397517 = {};
+type ProgramSlot__242246695 =
+  {
+    description : Text;
+    endTime : Text;
+    name : Text;
+    startTime : Text;
+    weekday : Weekday__275329659
+  };
+type ProgramSlot__691294520 =
+  {
+    description : Text;
+    endTime : Text;
+    name : Text;
+    startTime : Text;
+    weekday : Weekday__696666655
+  };
+type Timestamp__226875429 = Timestamp__301639476;
+type Timestamp__301639476 = Int;
+type UserRole__91647283 = {#admin; #guest; #user};
+type Weekday__275329659 =
+  {#friday; #monday; #saturday; #sunday; #thursday; #tuesday; #wednesday};
+type Weekday__696666655 =
+  {#friday; #monday; #saturday; #sunday; #thursday; #tuesday; #wednesday};
+{
+  "00000000_000000" : OldActor__512397517 -> NewActor__769816496
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable news :
+    {
+      var root : Node__204828119<NewsId__168210233, NewsItem__923776713>;
+      var size : Nat__227979830
+    };
+  stable newsState : {var nextNewsId : Nat};
+  stable schedule :
+    {
+      var blockIndex : Nat__227979830;
+      var blocks : [var [var ?ProgramSlot__691294520]];
+      var elementIndex : Nat__227979830
+    }
+};

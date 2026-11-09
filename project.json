@@ -1,0 +1,19 @@
+{
+  "overview": "App web en español para Radio Crepuscular 99.5 FM: escucha la señal en vivo, consulta la programación semanal, conoce la emisora y lee sus noticias y comunicados.",
+  "features": [
+    "Reproductor de la señal en vivo con estado de reproducción, volumen y reintento",
+    "Parrilla semanal de programas con resaltado del programa en emisión",
+    "Información y contacto de la emisora con enlaces accionables",
+    "Noticias y comunicados públicos con vista de detalle",
+    "Administración de noticias protegida por inicio de sesión"
+  ],
+  "category": "radio",
+  "tags": [
+    "radio",
+    "m-sica",
+    "comunidad",
+    "venezuela",
+    "noticias"
+  ],
+  "last_updated": "2026-11-09T11:04:43.925Z"
+}

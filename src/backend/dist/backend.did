@@ -1,0 +1,112 @@
+type Weekday = 
+ variant {
+   friday;
+   monday;
+   saturday;
+   sunday;
+   thursday;
+   tuesday;
+   wednesday;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type Result__1 = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type Result_2 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result_1 = 
+ variant {
+   err: NewsError;
+   ok;
+ };
+type Result = 
+ variant {
+   err: NewsError;
+   ok: NewsItem;
+ };
+type ProgramSlot = 
+ record {
+   description: text;
+   endTime: text;
+   name: text;
+   startTime: text;
+   weekday: Weekday;
+ };
+type NewsItem = 
+ record {
+   author: principal;
+   body: text;
+   id: NewsId;
+   publishedAt: Timestamp;
+   title: text;
+ };
+type NewsId = nat;
+type NewsError = 
+ variant {
+   notAuthor: NewsId;
+   notFound: NewsId;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result_2);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createNews: (title: text, body: text) -> (NewsItem);
+  deleteNews: (id: NewsId) -> (Result_1);
+  execute: (qJson: text) -> (Result__1) query;
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getNews: (id: NewsId) -> (opt NewsItem) query;
+  isCallerAdmin: () -> (bool) query;
+  listNews: () -> (vec NewsItem) query;
+  listSchedule: () -> (vec ProgramSlot) query;
+  schema: () -> (text) query;
+  updateNews: (id: NewsId, title: text, body: text) -> (Result);
+}
